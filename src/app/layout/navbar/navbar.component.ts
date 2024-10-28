@@ -18,6 +18,11 @@ export class NavbarComponent implements OnInit {
         route: "/"
       },
       {
+        label: 'Meeting Needs',
+        icon: 'pi pi-fw pi-chart-bar',
+        route: "/meetingneeds"
+      },
+      {
         label: 'Login',
         icon: 'pi pi-fw pi-user',
         route: "/login"

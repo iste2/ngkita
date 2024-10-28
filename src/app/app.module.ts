@@ -13,12 +13,14 @@ import {MenubarModule} from 'primeng/menubar';
 import {AvatarModule} from 'primeng/avatar';
 import {IconFieldModule} from 'primeng/iconfield';
 import {InputIconModule} from 'primeng/inputicon';
+import { MeetingneedsComponent } from './pages/meetingneeds/meetingneeds.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    MeetingneedsComponent
   ],
   imports: [
     BrowserModule,
