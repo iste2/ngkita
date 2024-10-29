@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {AuthService} from '../../shared/authService/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
 
   items: MenuItem[] | undefined;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, private routerService: Router) { }
 
   ngOnInit(): void {
     this.items = [
@@ -32,6 +33,11 @@ export class NavbarComponent implements OnInit {
         route: "/login"
       }
     ];
+  }
+
+  async logout() {
+    await this.authService.logout();
+    await this.routerService.navigate(['/']);
   }
 
 }

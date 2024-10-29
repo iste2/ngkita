@@ -19,6 +19,7 @@
 <!--      </p-iconField>-->
       <span *ngIf="authService.user" class="mr-2">{{ authService.user.name }}</span>
       <p-avatar *ngIf="authService.user" [label]="authService.user.name[0]" shape="circle" />
+      <p-button *ngIf="authService.user" [rounded]="true" [text]="true" icon="pi pi-sign-out" (click)="logout()" severity="secondary" class="p-button-text" />
     </div>
   </ng-template>
 </p-menubar>

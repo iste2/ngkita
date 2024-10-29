@@ -10,7 +10,10 @@ export class AuthService {
   session: Models.Session | null = null;
   user: Models.User<Models.Preferences> | null = null;
 
-  constructor() { }
+  constructor() {
+    localStorage.getItem('session') && (this.session = JSON.parse(localStorage.getItem('session') as string));
+    localStorage.getItem('user') && (this.user = JSON.parse(localStorage.getItem('user') as string));
+  }
 
   async login(email: string, password: string) {
     try {
@@ -20,6 +23,8 @@ export class AuthService {
       }
       this.session = await account.createEmailPasswordSession(email, password);
       this.user = await this.getLoggedInUser();
+      localStorage.setItem('session', JSON.stringify(this.session));
+      localStorage.setItem('user', JSON.stringify(this.user));
       console.log('Logged in');
     } catch (e) {
       console.log('Error logging in: ' + e);
@@ -31,6 +36,8 @@ export class AuthService {
       await account.deleteSession('current');
       this.session = null;
       this.user = null;
+      localStorage.removeItem('session');
+      localStorage.removeItem('user');
     } catch (e) {
       console.log('Error logging out: ' + e);
     }
