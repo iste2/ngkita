@@ -14,6 +14,7 @@ import {AvatarModule} from 'primeng/avatar';
 import {IconFieldModule} from 'primeng/iconfield';
 import {InputIconModule} from 'primeng/inputicon';
 import { MeetingneedsComponent } from './pages/meetingneeds/meetingneeds.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,18 +23,19 @@ import { MeetingneedsComponent } from './pages/meetingneeds/meetingneeds.compone
     NavbarComponent,
     MeetingneedsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    InputTextModule,
-    ButtonDirective,
-    Ripple,
-    BadgeModule,
-    MenubarModule,
-    AvatarModule,
-    IconFieldModule,
-    InputIconModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        InputTextModule,
+        ButtonDirective,
+        Ripple,
+        BadgeModule,
+        MenubarModule,
+        AvatarModule,
+        IconFieldModule,
+        InputIconModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

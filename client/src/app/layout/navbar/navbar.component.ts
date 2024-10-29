@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import {AuthService} from '../../shared/authService/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,10 @@ import {MenuItem} from 'primeng/api';
 })
 export class NavbarComponent implements OnInit {
 
+
   items: MenuItem[] | undefined;
+
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
     this.items = [

@@ -11,13 +11,14 @@
       <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
     </a>
   </ng-template>
-<!--  <ng-template pTemplate="end">-->
-<!--    <div class="flex align-items-center gap-2">-->
+  <ng-template pTemplate="end">
+    <div class="flex align-items-center gap-2">
 <!--      <p-iconField iconPosition="left">-->
 <!--        <p-inputIcon styleClass="pi pi-search" />-->
 <!--        <input type="text" pInputText placeholder="Suchen" class="w-8rem sm:w-auto" />-->
 <!--      </p-iconField>-->
-<!--      <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />-->
-<!--    </div>-->
-<!--  </ng-template>-->
+      <span *ngIf="authService.user" class="mr-2">{{ authService.user.name }}</span>
+      <p-avatar *ngIf="authService.user" [label]="authService.user.name[0]" shape="circle" />
+    </div>
+  </ng-template>
 </p-menubar>
