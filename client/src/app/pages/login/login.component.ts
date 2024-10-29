@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AuthService} from '../../shared/authService/auth.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
-  constructor(formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = formBuilder.group({
       email: '',
       password: ''
@@ -23,6 +24,7 @@ export class LoginComponent {
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .then(() => {
         this.loginForm.reset();
+        this.router.navigate(['/']);
       });
   }
 
