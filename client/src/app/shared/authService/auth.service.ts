@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Models} from 'appwrite';
 import {account} from '../../../shared/appwrite';
 
@@ -7,24 +7,17 @@ import {account} from '../../../shared/appwrite';
 })
 export class AuthService {
 
-  session: Models.Session | null = null;
   user: Models.User<Models.Preferences> | null = null;
-
-  constructor() {
-    localStorage.getItem('session') && (this.session = JSON.parse(localStorage.getItem('session') as string));
-    localStorage.getItem('user') && (this.user = JSON.parse(localStorage.getItem('user') as string));
-  }
+  constructor() { }
 
   async login(email: string, password: string) {
     try {
-      if(await this.isLoggedIn()) {
+      if(await this.isUserLoggedIn()) {
         console.log('Logging out current user before logging in.');
         await this.logout();
       }
-      this.session = await account.createEmailPasswordSession(email, password);
+      await account.createEmailPasswordSession(email, password);
       this.user = await this.getLoggedInUser();
-      localStorage.setItem('session', JSON.stringify(this.session));
-      localStorage.setItem('user', JSON.stringify(this.user));
       console.log('Logged in');
     } catch (e) {
       console.log('Error logging in: ' + e);
@@ -34,7 +27,6 @@ export class AuthService {
   async logout() {
     try {
       await account.deleteSession('current');
-      this.session = null;
       this.user = null;
       localStorage.removeItem('session');
       localStorage.removeItem('user');
@@ -43,7 +35,12 @@ export class AuthService {
     }
   }
 
-  async isLoggedIn() {
+  async tryFetchLoggedInUser() {
+    this.user = await this.getLoggedInUser();
+    return !!this.user;
+  }
+
+  async isUserLoggedIn(): Promise<boolean> {
     const user = await this.getLoggedInUser();
     return !!user;
   }
