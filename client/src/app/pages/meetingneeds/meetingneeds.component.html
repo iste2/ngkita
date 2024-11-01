@@ -1,1 +1,35 @@
 <p>meetingneeds works!</p>
+
+
+
+<p-table
+  [value]="capacityEntries"
+  [rows]="10"
+  [lazy]="true"
+  (onLazyLoad)="loadCapacityEntries()"
+  dataKey="id"
+  [rowsPerPageOptions]="[5, 10, 20]"
+  [paginator]="true"
+  styleClass="p-datatable-sm"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Anzeigen</th>
+      <th>Art</th>
+      <th>Id</th>
+      <th>Start</th>
+      <th>Ende</th>
+      <th>Wochenstunden</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-capacityEntry>
+    <tr>
+      <td><p-checkbox [(ngModel)]="capacityEntry.show" [binary]="true" /></td>
+      <td>{{ capacityEntryTypeDisplayValue(capacityEntry.capacityEntryType) }}</td>
+      <td>{{ capacityEntry.id }}</td>
+      <td>{{ capacityEntry.startDate.toDateString() }}</td>
+      <td>{{ capacityEntry.endDate.toDateString() }}</td>
+      <td>{{ capacityEntry.capacityHoursPerWeek }}</td>
+    </tr>
+  </ng-template>
+</p-table>

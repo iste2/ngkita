@@ -10,5 +10,22 @@ export enum CapacityEntryType {
 export interface CapacityEntry extends DateRangeCapacityOwner {
   id: string;
   show: boolean;
-  CapacityEntryType: CapacityEntryType;
+  capacityEntryType: CapacityEntryType;
+}
+
+export function capacityEntryTypeDisplayValue(
+  capacityEntryType: CapacityEntryType,
+): string {
+  switch (capacityEntryType) {
+    case CapacityEntryType.Job:
+      return 'Stelle';
+    case CapacityEntryType.EmployeeSuggestion:
+      return 'Vorschlag';
+    case CapacityEntryType.EmployeeHasJob:
+      return 'Mitarbeiter';
+    case CapacityEntryType.Demand:
+      return 'Bedarf';
+    default:
+      return 'Unknown';
+  }
 }
