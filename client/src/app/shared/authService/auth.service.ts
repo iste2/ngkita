@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Models} from 'appwrite';
 import {account} from '../../../shared/appwrite';
 
@@ -8,7 +8,6 @@ import {account} from '../../../shared/appwrite';
 export class AuthService {
 
   user: Models.User<Models.Preferences> | null = null;
-  constructor() { }
 
   async login(email: string, password: string) {
     try {
