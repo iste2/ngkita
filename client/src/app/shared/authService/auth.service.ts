@@ -1,17 +1,16 @@
-import {Injectable} from '@angular/core';
-import {Models} from 'appwrite';
-import {account} from '../../../shared/appwrite';
+import { Injectable } from '@angular/core';
+import { Models } from 'appwrite';
+import { account } from '../../../shared/appwrite';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   user: Models.User<Models.Preferences> | null = null;
 
   async login(email: string, password: string) {
     try {
-      if(await this.isUserLoggedIn()) {
+      if (await this.isUserLoggedIn()) {
         console.log('Logging out current user before logging in.');
         await this.logout();
       }

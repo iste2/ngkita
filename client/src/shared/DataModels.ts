@@ -7,9 +7,7 @@ export interface CapacityOwner {
   capacityHoursPerWeek: number;
 }
 
-export interface DateRangeCapacityOwner extends DateRangeOwner, CapacityOwner {
-
-}
+export interface DateRangeCapacityOwner extends DateRangeOwner, CapacityOwner {}
 
 export interface IBaseData {
   firstName: string;

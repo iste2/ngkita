@@ -30,6 +30,14 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
+      // "@angular-eslint/template/elements-content": [
+      //   "error",
+      //   {
+      //     "allowList": [
+      //       "button[label]"
+      //     ],
+      //   }
+      // ],
     },
   },
   {
@@ -39,5 +47,5 @@ module.exports = tseslint.config(
       ...angular.configs.templateAccessibility,
     ],
     rules: {},
-  }
+  },
 );

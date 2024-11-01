@@ -1,37 +1,38 @@
-import {Component, OnInit} from '@angular/core';
-import {MenuItem} from 'primeng/api';
-import {AuthService} from '../../shared/authService/auth.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { AuthService } from '../../shared/authService/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
-
-
   items: MenuItem[] | undefined;
 
-  constructor(public authService: AuthService, private routerService: Router) { }
+  constructor(
+    public authService: AuthService,
+    private routerService: Router,
+  ) {}
 
   ngOnInit(): void {
     this.items = [
       {
         label: 'Home',
         icon: 'pi pi-fw pi-home',
-        route: "/"
+        route: '/',
       },
       {
         label: 'Meeting Needs',
         icon: 'pi pi-fw pi-chart-bar',
-        route: "/meetingneeds"
+        route: '/meetingneeds',
       },
       {
         label: 'Login',
         icon: 'pi pi-fw pi-user',
-        route: "/login"
-      }
+        route: '/login',
+      },
     ];
   }
 
@@ -39,5 +40,4 @@ export class NavbarComponent implements OnInit {
     await this.authService.logout();
     await this.routerService.navigate(['/']);
   }
-
 }

@@ -1,21 +1,24 @@
 import { Component } from '@angular/core';
-import {AuthService} from '../../shared/authService/auth.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
+import { AuthService } from '../../shared/authService/auth.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-
   loginForm: FormGroup;
 
-  constructor(formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+  ) {
     this.loginForm = formBuilder.group({
       email: '',
-      password: ''
+      password: '',
     });
   }
 
@@ -27,5 +30,4 @@ export class LoginComponent {
         this.router.navigate(['/']);
       });
   }
-
 }
