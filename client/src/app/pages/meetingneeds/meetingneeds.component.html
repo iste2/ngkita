@@ -1,7 +1,7 @@
-<p>meetingneeds works!</p>
+<h1 class="mb-3">Kapazitätsübersicht</h1>
 
 <!-- Filters -->
-<div class="flex flex-row mb-3">
+<div class="flex flex-row align-items-center mb-3">
   <p-multiSelect
     [options]="meetingneedsService.facilities"
     [(ngModel)]="selectedFacilities"
@@ -25,7 +25,7 @@
     <ng-template let-capacityEntryType pTemplate="selectedItems">
       <div *ngIf="selectedCapacityEntryTypes.length > 0">
         <div class="inline-flex mr-2" *ngFor="let item of selectedCapacityEntryTypes">
-          <div style="height: 12px; width: 40px;" [style.background-color]="capacityEntryTypeColor(item)" class="mr-2"></div>
+          <div style="height: 12px; width: 12px;" [style.background-color]="capacityEntryTypeColor(item)" class="mr-2"></div>
           {{ capacityEntryTypeDisplayValue(item) }}
         </div>
       </div>
@@ -35,7 +35,7 @@
     </ng-template>
     <ng-template let-capacityEntryType pTemplate="item">
       <div class="flex flex-row">
-        <div style="height: 12px; width: 40px;" [style.background-color]="capacityEntryTypeColor(capacityEntryType)" class="mr-2"></div>
+        <div style="height: 12px; width: 12px;" [style.background-color]="capacityEntryTypeColor(capacityEntryType)" class="mr-2"></div>
         {{ capacityEntryTypeDisplayValue(capacityEntryType) }}
       </div>
     </ng-template>
@@ -82,7 +82,7 @@
     <tr>
       <td colspan="4">
         <div class="flex flex-row">
-          <div style="height: 12px; width: 40px;" [style.background-color]="capacityEntryTypeColor(capacityEntry.capacityEntryType)" class="mr-2"></div>
+          <div style="height: 12px; width: 12px;" [style.background-color]="capacityEntryTypeColor(capacityEntry.capacityEntryType)" class="mr-2"></div>
           {{ capacityEntryTypeDisplayValue(capacityEntry.capacityEntryType) }}
         </div>
       </td>
