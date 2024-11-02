@@ -14,6 +14,11 @@ export const capacityEntryTypeColors = {
   [CapacityEntryType.Demand]: '#E53935',
 };
 
+export function capacityEntryTypeColor(capacityEntryType: CapacityEntryType) {
+  if (capacityEntryType === undefined) return '#000000';
+  return capacityEntryTypeColors[capacityEntryType];
+}
+
 export interface CapacityEntry extends DateRangeCapacityOwner {
   id: string;
   show: boolean;
@@ -25,13 +30,13 @@ export function capacityEntryTypeDisplayValue(
 ): string {
   switch (capacityEntryType) {
     case CapacityEntryType.Job:
-      return 'Stelle';
+      return 'Stellen';
     case CapacityEntryType.EmployeeSuggestion:
-      return 'Vorschlag';
+      return 'Personalvorschläge';
     case CapacityEntryType.EmployeeHasJob:
       return 'Mitarbeiter';
     case CapacityEntryType.Demand:
-      return 'Bedarf';
+      return 'Bedarfe';
     default:
       return 'Unknown';
   }

@@ -22,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ChartModule } from 'primeng/chart';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { PanelModule } from 'primeng/panel';
     ChartModule,
     CardModule,
     PanelModule,
+    TagModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

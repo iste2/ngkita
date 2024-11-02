@@ -4,6 +4,7 @@ import 'chartjs-adapter-luxon';
 import {
   CapacityEntry,
   CapacityEntryType,
+  capacityEntryTypeColor,
   capacityEntryTypeColors,
   capacityEntryTypeDisplayValue,
 } from './CapacityEntry';
@@ -166,10 +167,8 @@ export class MeetingneedsComponent implements OnInit {
     };
   }
 
-  loadCapacityEntries() {
-    this.capacityEntries = this.meetingneedsService.capacityEntries;
-  }
-
   protected readonly capacityEntryTypeDisplayValue =
     capacityEntryTypeDisplayValue;
+  protected readonly capacityEntryTypeColors = capacityEntryTypeColors;
+  protected readonly capacityEntryTypeColor = capacityEntryTypeColor;
 }

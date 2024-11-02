@@ -29,7 +29,12 @@
   </ng-template>
   <ng-template pTemplate="groupheader" let-capacityEntry>
     <tr>
-      <td colspan="4">{{ capacityEntryTypeDisplayValue(capacityEntry.capacityEntryType) }}</td>
+      <td colspan="4">
+        <div class="flex flex-row">
+          <div style="height: 20px; width: 40px;" [style.background-color]="capacityEntryTypeColor(capacityEntry.capacityEntryType)" class="mr-2"></div>
+          {{ capacityEntryTypeDisplayValue(capacityEntry.capacityEntryType) }}
+        </div>
+      </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-capacityEntry>
