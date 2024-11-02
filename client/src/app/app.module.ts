@@ -19,6 +19,9 @@ import { TableModule } from 'primeng/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ChartModule } from 'primeng/chart';
+import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     MultiSelectModule,
     FormsModule,
     CheckboxModule,
+    ChartModule,
+    CardModule,
+    PanelModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,11 @@
 <p>meetingneeds works!</p>
 
-
+<p-chart
+  type="line"
+  [data]="chartData"
+  [options]="chartOptions"
+  height="400px"
+/>
 
 <p-table
   [value]="capacityEntries"
@@ -14,8 +19,6 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th>Anzeigen</th>
-      <th>Art</th>
       <th>Id</th>
       <th>Start</th>
       <th>Ende</th>
@@ -24,8 +27,6 @@
   </ng-template>
   <ng-template pTemplate="body" let-capacityEntry>
     <tr>
-      <td><p-checkbox [(ngModel)]="capacityEntry.show" [binary]="true" /></td>
-      <td>{{ capacityEntryTypeDisplayValue(capacityEntry.capacityEntryType) }}</td>
       <td>{{ capacityEntry.id }}</td>
       <td>{{ capacityEntry.startDate.toDateString() }}</td>
       <td>{{ capacityEntry.endDate.toDateString() }}</td>
