@@ -36,7 +36,7 @@ export class MeetingneedsComponent implements OnInit {
       capacityEntryTypeDisplayValue(CapacityEntryType.EmployeeHasJob),
       capacityEntryTypeDisplayValue(CapacityEntryType.Demand),
     ];
-    this.capacityEntries = this.meetingneedsService.capacityEntries;
+    this.capacityEntries = this.meetingneedsService.baseCapacityEntries;
 
     this.chartData = {
       labels: allDaysBetween(
@@ -175,4 +175,7 @@ export class MeetingneedsComponent implements OnInit {
     capacityEntryTypeDisplayValue;
   protected readonly capacityEntryTypeColors = capacityEntryTypeColors;
   protected readonly capacityEntryTypeColor = capacityEntryTypeColor;
+  selectedFacilities: Facility[] = [];
+  selectedDateRange: Date[] | undefined = [];
+  selectedCapacityEntryTypes: CapacityEntryType[] = [];
 }
