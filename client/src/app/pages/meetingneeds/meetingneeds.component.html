@@ -1,11 +1,54 @@
 <p>meetingneeds works!</p>
 
+<div class="flex flex-row mb-3">
+  <p-multiSelect
+    [options]="meetingneedsService.facilities"
+    [(ngModel)]="selectedFacilities"
+    optionLabel="name"
+    placeholder="Einrichtungen"
+    class="mr-2"
+  />
+  <p-calendar
+    [(ngModel)]="selectedDateRange"
+    selectionMode="range"
+    placeholder="Zeitraum"
+    view="month"
+    dateFormat="dd.mm.yy"
+    class="mr-2"
+  />
+  <p-multiSelect
+    [options]="meetingneedsService.capacityEntryTypes"
+    [(ngModel)]="selectedCapacityEntryTypes"
+    placeholder="Elemente"
+    class="mr-2">
+    <ng-template let-capacityEntryType pTemplate="selectedItems">
+      <div *ngIf="selectedCapacityEntryTypes.length > 0">
+        <div class="inline-flex mr-2" *ngFor="let item of selectedCapacityEntryTypes">
+          <div style="height: 12px; width: 40px;" [style.background-color]="capacityEntryTypeColor(item)" class="mr-2"></div>
+          {{ capacityEntryTypeDisplayValue(item) }}
+        </div>
+      </div>
+      <div *ngIf="selectedCapacityEntryTypes.length === 0">
+        <span>Elemente</span>
+      </div>
+    </ng-template>
+    <ng-template let-capacityEntryType pTemplate="item">
+      <div class="flex flex-row">
+        <div style="height: 12px; width: 40px;" [style.background-color]="capacityEntryTypeColor(capacityEntryType)" class="mr-2"></div>
+        {{ capacityEntryTypeDisplayValue(capacityEntryType) }}
+      </div>
+    </ng-template>
+  </p-multiSelect>
+</div>
+
 <p-chart
   type="line"
   [data]="chartData"
   [options]="chartOptions"
   height="400px"
 />
+
+<div class="mb-3"></div>
 
 <p-table
   [value]="capacityEntries"
@@ -31,7 +74,7 @@
     <tr>
       <td colspan="4">
         <div class="flex flex-row">
-          <div style="height: 20px; width: 40px;" [style.background-color]="capacityEntryTypeColor(capacityEntry.capacityEntryType)" class="mr-2"></div>
+          <div style="height: 12px; width: 40px;" [style.background-color]="capacityEntryTypeColor(capacityEntry.capacityEntryType)" class="mr-2"></div>
           {{ capacityEntryTypeDisplayValue(capacityEntry.capacityEntryType) }}
         </div>
       </td>
@@ -40,8 +83,8 @@
   <ng-template pTemplate="body" let-capacityEntry>
     <tr>
       <td>{{ capacityEntry.id }}</td>
-      <td>{{ capacityEntry.startDate.toDateString() }}</td>
-      <td>{{ capacityEntry.endDate.toDateString() }}</td>
+      <td>{{ capacityEntry.startDate.toLocaleDateString() }}</td>
+      <td>{{ capacityEntry.endDate.toLocaleDateString() }}</td>
       <td>{{ capacityEntry.capacityHoursPerWeek }}</td>
     </tr>
   </ng-template>

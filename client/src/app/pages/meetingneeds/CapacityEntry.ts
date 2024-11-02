@@ -21,6 +21,7 @@ export function capacityEntryTypeColor(capacityEntryType: CapacityEntryType) {
 
 export interface CapacityEntry extends DateRangeCapacityOwner {
   id: string;
+  facilityId: string;
   show: boolean;
   capacityEntryType: CapacityEntryType;
 }

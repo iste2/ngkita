@@ -14,6 +14,7 @@ import {
   latestDate,
 } from '../../../shared/dateUtils';
 import { ChartData, ChartOptions } from 'chart.js';
+import { Facility } from './Facility';
 
 @Component({
   selector: 'app-meetingneeds',
@@ -162,6 +163,9 @@ export class MeetingneedsComponent implements OnInit {
               return ctx[0].label.replace(', 00:00:00', '');
             },
           },
+        },
+        legend: {
+          display: false,
         },
       },
     };
