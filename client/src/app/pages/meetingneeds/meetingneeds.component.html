@@ -10,9 +10,11 @@
 <p-table
   [value]="capacityEntries"
   [rows]="10"
-  [lazy]="true"
-  (onLazyLoad)="loadCapacityEntries()"
   dataKey="id"
+  sortField="capacityEntryType"
+  sortMode="single"
+  rowGroupMode="subheader"
+  groupRowsBy="capacityEntryType"
   [rowsPerPageOptions]="[5, 10, 20]"
   [paginator]="true"
   styleClass="p-datatable-sm"
@@ -23,6 +25,11 @@
       <th>Start</th>
       <th>Ende</th>
       <th>Wochenstunden</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="groupheader" let-capacityEntry>
+    <tr>
+      <td colspan="4">{{ capacityEntryTypeDisplayValue(capacityEntry.capacityEntryType) }}</td>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-capacityEntry>

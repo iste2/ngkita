@@ -7,6 +7,13 @@ export enum CapacityEntryType {
   Demand,
 }
 
+export const capacityEntryTypeColors = {
+  [CapacityEntryType.Job]: '#2196F3',
+  [CapacityEntryType.EmployeeSuggestion]: '#FF9800',
+  [CapacityEntryType.EmployeeHasJob]: '#43A047',
+  [CapacityEntryType.Demand]: '#E53935',
+};
+
 export interface CapacityEntry extends DateRangeCapacityOwner {
   id: string;
   show: boolean;

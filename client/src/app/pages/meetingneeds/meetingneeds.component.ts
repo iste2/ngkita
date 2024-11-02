@@ -4,6 +4,7 @@ import 'chartjs-adapter-luxon';
 import {
   CapacityEntry,
   CapacityEntryType,
+  capacityEntryTypeColors,
   capacityEntryTypeDisplayValue,
 } from './CapacityEntry';
 import {
@@ -60,7 +61,8 @@ export class MeetingneedsComponent implements OnInit {
           stepped: true,
           fill: false,
           pointStyle: false,
-          borderColor: 'rgba(33, 33, 33, 1)',
+          borderColor: capacityEntryTypeColors[CapacityEntryType.Demand],
+          backgroundColor: capacityEntryTypeColors[CapacityEntryType.Demand],
         },
         {
           label: 'Stellen',
@@ -81,8 +83,8 @@ export class MeetingneedsComponent implements OnInit {
           stepped: true,
           fill: false,
           pointStyle: false,
-          borderColor: 'rgba(33, 150, 243, 1)',
-          backgroundColor: 'rgba(54, 162, 235, 0.1)',
+          borderColor: capacityEntryTypeColors[CapacityEntryType.Job],
+          backgroundColor: capacityEntryTypeColors[CapacityEntryType.Job],
         },
         {
           label: 'Besetzte Stellen',
@@ -104,11 +106,13 @@ export class MeetingneedsComponent implements OnInit {
           fill: true,
           stack: 'stack1',
           pointStyle: false,
-          borderColor: 'rgba(76, 175, 80, 1)',
-          backgroundColor: 'rgba(76, 175, 80, 1)',
+          borderColor:
+            capacityEntryTypeColors[CapacityEntryType.EmployeeHasJob],
+          backgroundColor:
+            capacityEntryTypeColors[CapacityEntryType.EmployeeHasJob],
         },
         {
-          label: 'Vorschläge',
+          label: 'Personalvorschläge',
           type: 'line',
           data: allDaysBetween(
             earliestDate(this.capacityEntries.map((entry) => entry.startDate)),
@@ -128,8 +132,10 @@ export class MeetingneedsComponent implements OnInit {
           fill: true,
           stack: 'stack1',
           pointStyle: false,
-          borderColor: 'rgba(255, 152, 0, 1)',
-          backgroundColor: 'rgba(255, 152, 0, 1)',
+          borderColor:
+            capacityEntryTypeColors[CapacityEntryType.EmployeeSuggestion],
+          backgroundColor:
+            capacityEntryTypeColors[CapacityEntryType.EmployeeSuggestion],
         },
       ],
     };
