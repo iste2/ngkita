@@ -144,6 +144,19 @@ export class MeetingneedsComponent implements OnInit {
           type: 'time',
         },
       },
+      interaction: {
+        intersect: false,
+        mode: 'index',
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            title: (ctx) => {
+              return ctx[0].label.replace(', 00:00:00', '');
+            },
+          },
+        },
+      },
     };
   }
 
