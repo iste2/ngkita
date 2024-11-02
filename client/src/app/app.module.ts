@@ -24,6 +24,8 @@ import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { TagModule } from 'primeng/tag';
 import { CalendarModule } from 'primeng/calendar';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DemandplanningComponent } from './pages/demandplanning/demandplanning.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { CalendarModule } from 'primeng/calendar';
     LoginComponent,
     NavbarComponent,
     MeetingneedsComponent,
+    DemandplanningComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { CalendarModule } from 'primeng/calendar';
     PanelModule,
     TagModule,
     CalendarModule,
+    ToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { MeetingneedsComponent } from './pages/meetingneeds/meetingneeds.component';
 import { AuthGuardService } from './shared/authGuardService/auth-guard.service';
+import { DemandplanningComponent } from './pages/demandplanning/demandplanning.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,11 @@ const routes: Routes = [
   {
     path: 'meetingneeds',
     component: MeetingneedsComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'demandplanning',
+    component: DemandplanningComponent,
     canActivate: [AuthGuardService],
   },
 ];

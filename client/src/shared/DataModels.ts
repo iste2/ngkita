@@ -56,3 +56,16 @@ export interface EmployeeHasJob extends DateRangeCapacityOwner {
   employee: Employee;
   job: Job;
 }
+
+export interface KiBizGroup extends DateRangeCapacityOwner {
+  facility: Facility;
+  size1A: number;
+  size1B: number;
+  size1C: number;
+  size2A: number;
+  size2B: number;
+  size2C: number;
+  size3A: number;
+  size3B: number;
+  size3C: number;
+}

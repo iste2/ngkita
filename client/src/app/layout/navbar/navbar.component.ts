@@ -24,7 +24,12 @@ export class NavbarComponent implements OnInit {
         route: '/',
       },
       {
-        label: 'Meeting Needs',
+        label: 'Bedarfsplanung',
+        icon: 'pi pi-fw pi-bullseye',
+        route: '/demandplanning',
+      },
+      {
+        label: 'Kapazitätsübersicht',
         icon: 'pi pi-fw pi-chart-bar',
         route: '/meetingneeds',
       },
