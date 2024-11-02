@@ -37,109 +37,84 @@ export class MeetingneedsComponent implements OnInit {
       capacityEntryTypeDisplayValue(CapacityEntryType.Demand),
     ];
     this.capacityEntries = this.meetingneedsService.baseCapacityEntries;
+    this.selectedCapacityEntryTypes = [
+      CapacityEntryType.Job,
+      CapacityEntryType.EmployeeSuggestion,
+      CapacityEntryType.EmployeeHasJob,
+      CapacityEntryType.Demand,
+    ];
+    this.updateCapacityEntries();
+    this.updateChart();
+  }
 
-    this.chartData = {
-      labels: allDaysBetween(
+  protected readonly capacityEntryTypeDisplayValue =
+    capacityEntryTypeDisplayValue;
+  protected readonly capacityEntryTypeColor = capacityEntryTypeColor;
+  selectedFacilities: Facility[] = [];
+  selectedDateRange: Date[] | undefined = [];
+  selectedCapacityEntryTypes: CapacityEntryType[] = [];
+
+  protected applyFilter(): void {
+    this.updateCapacityEntries();
+    this.updateChart();
+  }
+
+  protected updateCapacityEntries(): void {
+    this.meetingneedsService.updateCapacityEntries(
+      this.selectedFacilities,
+      this.selectedDateRange,
+      this.selectedCapacityEntryTypes,
+    );
+    this.capacityEntries = this.meetingneedsService.capacityEntries;
+  }
+
+  private updateChart(): void {
+    let labels: Date[] = [];
+    if (this.selectedDateRange) {
+      labels = allDaysBetween(
+        this.selectedDateRange[0],
+        this.selectedDateRange[1],
+      );
+    } else {
+      labels = allDaysBetween(
         earliestDate(this.capacityEntries.map((entry) => entry.startDate)),
         latestDate(this.capacityEntries.map((entry) => entry.endDate)),
-      ),
-      datasets: [
-        {
-          label: 'Bedarf',
-          type: 'line',
-          data: allDaysBetween(
-            earliestDate(this.capacityEntries.map((entry) => entry.startDate)),
-            latestDate(this.capacityEntries.map((entry) => entry.endDate)),
-          ).map((date) =>
-            this.capacityEntries
-              .filter(
-                (entry) =>
-                  entry.startDate <= date &&
-                  entry.endDate >= date &&
-                  entry.capacityEntryType === CapacityEntryType.Demand,
-              )
-              .reduce((sum, entry) => sum + entry.capacityHoursPerWeek, 0),
-          ),
-          stepped: true,
-          fill: false,
-          pointStyle: false,
-          borderColor: capacityEntryTypeColors[CapacityEntryType.Demand],
-          backgroundColor: capacityEntryTypeColors[CapacityEntryType.Demand],
-        },
-        {
-          label: 'Stellen',
-          type: 'line',
-          data: allDaysBetween(
-            earliestDate(this.capacityEntries.map((entry) => entry.startDate)),
-            latestDate(this.capacityEntries.map((entry) => entry.endDate)),
-          ).map((date) =>
-            this.capacityEntries
-              .filter(
-                (entry) =>
-                  entry.startDate <= date &&
-                  entry.endDate >= date &&
-                  entry.capacityEntryType === CapacityEntryType.Job,
-              )
-              .reduce((sum, entry) => sum + entry.capacityHoursPerWeek, 0),
-          ),
-          stepped: true,
-          fill: false,
-          pointStyle: false,
-          borderColor: capacityEntryTypeColors[CapacityEntryType.Job],
-          backgroundColor: capacityEntryTypeColors[CapacityEntryType.Job],
-        },
-        {
-          label: 'Besetzte Stellen',
-          type: 'line',
-          data: allDaysBetween(
-            earliestDate(this.capacityEntries.map((entry) => entry.startDate)),
-            latestDate(this.capacityEntries.map((entry) => entry.endDate)),
-          ).map((date) =>
-            this.capacityEntries
-              .filter(
-                (entry) =>
-                  entry.startDate <= date &&
-                  entry.endDate >= date &&
-                  entry.capacityEntryType === CapacityEntryType.EmployeeHasJob,
-              )
-              .reduce((sum, entry) => sum + entry.capacityHoursPerWeek, 0),
-          ),
-          stepped: true,
-          fill: true,
-          stack: 'stack1',
-          pointStyle: false,
-          borderColor:
-            capacityEntryTypeColors[CapacityEntryType.EmployeeHasJob],
-          backgroundColor:
-            capacityEntryTypeColors[CapacityEntryType.EmployeeHasJob],
-        },
-        {
-          label: 'Personalvorschläge',
-          type: 'line',
-          data: allDaysBetween(
-            earliestDate(this.capacityEntries.map((entry) => entry.startDate)),
-            latestDate(this.capacityEntries.map((entry) => entry.endDate)),
-          ).map((date) =>
-            this.capacityEntries
-              .filter(
-                (entry) =>
-                  entry.startDate <= date &&
-                  entry.endDate >= date &&
-                  entry.capacityEntryType ===
-                    CapacityEntryType.EmployeeSuggestion,
-              )
-              .reduce((sum, entry) => sum + entry.capacityHoursPerWeek, 0),
-          ),
-          stepped: true,
-          fill: true,
-          stack: 'stack1',
-          pointStyle: false,
-          borderColor:
-            capacityEntryTypeColors[CapacityEntryType.EmployeeSuggestion],
-          backgroundColor:
-            capacityEntryTypeColors[CapacityEntryType.EmployeeSuggestion],
-        },
-      ],
+      );
+    }
+
+    const datasets: any[] = [];
+    this.selectedCapacityEntryTypes.forEach((capacityEntryType) => {
+      datasets.push({
+        label: capacityEntryTypeDisplayValue(capacityEntryType),
+        type: 'line',
+        data: labels.map((date) =>
+          this.capacityEntries
+            .filter(
+              (entry) =>
+                entry.startDate <= date &&
+                entry.endDate >= date &&
+                entry.capacityEntryType === capacityEntryType,
+            )
+            .reduce((sum, entry) => sum + entry.capacityHoursPerWeek, 0),
+        ),
+        stepped: true,
+        fill:
+          capacityEntryType === CapacityEntryType.EmployeeHasJob ||
+          capacityEntryType === CapacityEntryType.EmployeeSuggestion,
+        stack:
+          capacityEntryType === CapacityEntryType.EmployeeHasJob ||
+          capacityEntryType === CapacityEntryType.EmployeeSuggestion
+            ? 'stack1'
+            : undefined,
+        pointStyle: false,
+        borderColor: capacityEntryTypeColors[capacityEntryType],
+        backgroundColor: capacityEntryTypeColors[capacityEntryType],
+      });
+    });
+
+    this.chartData = {
+      labels: labels,
+      datasets: datasets,
     };
 
     this.chartOptions = {
@@ -147,9 +122,15 @@ export class MeetingneedsComponent implements OnInit {
       scales: {
         y: {
           beginAtZero: true,
+          grid: {
+            display: false,
+          },
         },
         x: {
           type: 'time',
+          grid: {
+            display: false,
+          },
         },
       },
       interaction: {
@@ -170,12 +151,4 @@ export class MeetingneedsComponent implements OnInit {
       },
     };
   }
-
-  protected readonly capacityEntryTypeDisplayValue =
-    capacityEntryTypeDisplayValue;
-  protected readonly capacityEntryTypeColors = capacityEntryTypeColors;
-  protected readonly capacityEntryTypeColor = capacityEntryTypeColor;
-  selectedFacilities: Facility[] = [];
-  selectedDateRange: Date[] | undefined = [];
-  selectedCapacityEntryTypes: CapacityEntryType[] = [];
 }

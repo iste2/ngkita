@@ -1,5 +1,6 @@
 <p>meetingneeds works!</p>
 
+<!-- Filters -->
 <div class="flex flex-row mb-3">
   <p-multiSelect
     [options]="meetingneedsService.facilities"
@@ -39,9 +40,16 @@
       </div>
     </ng-template>
   </p-multiSelect>
+  <p-button
+    label="Filtern"
+    icon="pi pi-filter"
+    (click)="applyFilter()"
+    class="mr-2" />
 </div>
 
+<!-- Chart -->
 <p-chart
+  *ngIf="capacityEntries.length > 0"
   type="line"
   [data]="chartData"
   [options]="chartOptions"
@@ -50,7 +58,9 @@
 
 <div class="mb-3"></div>
 
+<!-- Table -->
 <p-table
+  *ngIf="capacityEntries.length > 0"
   [value]="capacityEntries"
   [rows]="10"
   dataKey="id"
