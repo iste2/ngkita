@@ -1,3 +1,155 @@
 <h1 class="mb-3">Bedarfsplanung</h1>
 
+<p-table [value]="kibizGroups" dataKey="id" editMode="row" [scrollable]="true">
+  <ng-template pTemplate="caption">
+    <p-button icon="pi pi-plus" class="mr-2" severity="success" (click)="addGroup()" />
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Einrichtung</th>
+      <th>Zeitraum</th>
+      <th>I.a</th>
+      <th>I.b</th>
+      <th>I.c</th>
+      <th>II.a</th>
+      <th>II.b</th>
+      <th>II.c</th>
+      <th>III.a</th>
+      <th>III.b</th>
+      <th>III.c</th>
+      <th pFrozenColumn [frozen]="true" alignFrozen="right"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-group let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="group" [class.bg-green-100]="!group.id">
+      <td>
+        {{ group.id }}
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-dropdown [options]="facilities" [(ngModel)]="group.facility" optionLabel="name" placeholder="Einrichtung" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.facility.name }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-calendar [(ngModel)]="group.dateRange" selectionMode="range" appendTo="body" view="month" dateFormat="dd.mm.yy" placeholder="Zeitraum"></p-calendar>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.dateRange[0] | date: 'dd.MM.yyyy' }} - {{ group.dateRange[1] | date: 'dd.MM.yyyy' }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
 
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText class="w-3rem" [(ngModel)]="group.size1A" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.size1A }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText class="w-3rem" [(ngModel)]="group.size1B" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.size1B }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText class="w-3rem" [(ngModel)]="group.size1C" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.size1C }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText class="w-3rem" [(ngModel)]="group.size2A" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.size2A }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText class="w-3rem" [(ngModel)]="group.size2B" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.size2B }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText class="w-3rem" [(ngModel)]="group.size2C" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.size2C }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText class="w-3rem" [(ngModel)]="group.size3A" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.size3A }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText class="w-3rem" [(ngModel)]="group.size3B" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.size3B }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText class="w-3rem" [(ngModel)]="group.size3C" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ group.size3C }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td pFrozenColumn [frozen]="true" alignFrozen="right">
+        <div class="flex flex-row">
+          <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" severity="info" class="mr-2" />
+          <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" severity="success" class="mr-2" (click)="onRowEditSave(group)" />
+          <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" severity="warning" class="mr-2" />
+          <p-button *ngIf="!editing" icon="pi pi-trash" class="mr-2" severity="danger" (click)="deleteGroup(group)" />
+        </div>
+      </td>
+    </tr>
+
+  </ng-template>
+
+</p-table>

@@ -26,6 +26,7 @@ import { TagModule } from 'primeng/tag';
 import { CalendarModule } from 'primeng/calendar';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DemandplanningComponent } from './pages/demandplanning/demandplanning.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { DemandplanningComponent } from './pages/demandplanning/demandplanning.c
     BrowserModule,
     BrowserAnimationsModule,
     MultiSelectModule,
+    DropdownModule,
     FormsModule,
     CheckboxModule,
     ChartModule,
