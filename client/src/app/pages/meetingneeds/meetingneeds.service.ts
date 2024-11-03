@@ -2,16 +2,23 @@ import { Injectable } from '@angular/core';
 import { CapacityEntry, CapacityEntryType } from './CapacityEntry';
 import { Facility } from './Facility';
 import { dateRangeOverlaps } from '../../../shared/dateUtils';
+import { DemandType } from '../../../shared/DataModels';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeetingneedsService {
   capacityEntryTypes: CapacityEntryType[] = [
-    CapacityEntryType.Job,
-    CapacityEntryType.EmployeeSuggestion,
-    CapacityEntryType.EmployeeHasJob,
     CapacityEntryType.Demand,
+    CapacityEntryType.Job,
+    CapacityEntryType.EmployeeHasJob,
+    CapacityEntryType.EmployeeSuggestion,
+  ];
+  demandTypes: DemandType[] = [
+    DemandType.Specialist,
+    DemandType.Assistant,
+    DemandType.Manager,
+    DemandType.Support,
   ];
   facilities: Facility[] = [
     { id: '1', name: 'Springfield' },
@@ -24,57 +31,69 @@ export class MeetingneedsService {
   baseCapacityEntries: CapacityEntry[] = [
     {
       id: '24',
+      name: 'Erzieher',
       facilityId: '1',
       show: true,
       capacityEntryType: CapacityEntryType.Job,
       startDate: new Date(2024, 0, 1),
       endDate: new Date(2024, 11, 31),
       capacityHoursPerWeek: 60,
+      demandType: DemandType.Specialist,
     },
     {
-      id: '52',
+      id: '56',
+      name: 'Manfred, Powerman',
       facilityId: '1',
       show: true,
       capacityEntryType: CapacityEntryType.EmployeeHasJob,
       startDate: new Date(2024, 0, 1),
       endDate: new Date(2024, 7, 31),
       capacityHoursPerWeek: 15,
+      demandType: DemandType.Specialist,
     },
     {
       id: '33',
+      name: 'Wolfgang, Powerman',
       facilityId: '1',
       show: true,
       capacityEntryType: CapacityEntryType.EmployeeSuggestion,
       startDate: new Date(2024, 0, 1),
       endDate: new Date(2024, 11, 31),
       capacityHoursPerWeek: 10,
+      demandType: DemandType.Specialist,
     },
     {
       id: '52',
+      name: 'Ulrich, Megaman',
       facilityId: '1',
       show: true,
       capacityEntryType: CapacityEntryType.EmployeeHasJob,
       startDate: new Date(2024, 0, 1),
       endDate: new Date(2024, 11, 31),
       capacityHoursPerWeek: 15,
+      demandType: DemandType.Specialist,
     },
     {
       id: '41',
+      name: 'KiTa-Bedarfsplan',
       facilityId: '1',
       show: true,
       capacityEntryType: CapacityEntryType.Demand,
       startDate: new Date(2024, 0, 1),
       endDate: new Date(2024, 11, 31),
       capacityHoursPerWeek: 80,
+      demandType: DemandType.Specialist,
     },
     {
-      id: '41',
+      id: '42',
+      name: 'KiTa-Bedarfsplan',
       facilityId: '1',
       show: true,
       capacityEntryType: CapacityEntryType.Demand,
       startDate: new Date(2024, 5, 1),
       endDate: new Date(2024, 11, 31),
       capacityHoursPerWeek: 80,
+      demandType: DemandType.Manager,
     },
   ];
 
@@ -82,6 +101,7 @@ export class MeetingneedsService {
     selectedFacilities: Facility[],
     selectedDateRange: Date[] | undefined,
     selectedCapacityEntryTypes: CapacityEntryType[],
+    selectedDemandTypes: DemandType[],
   ): void {
     this.capacityEntries = this.baseCapacityEntries.filter(
       (entry) =>
@@ -95,7 +115,8 @@ export class MeetingneedsService {
             selectedDateRange[1],
             entry.startDate,
             entry.endDate,
-          )),
+          )) &&
+        selectedDemandTypes.includes(entry.demandType),
     );
   }
 }

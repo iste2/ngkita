@@ -15,6 +15,10 @@ import {
 } from '../../../shared/dateUtils';
 import { ChartData, ChartOptions } from 'chart.js';
 import { Facility } from './Facility';
+import { DemandType } from '../../../shared/DataModels';
+import { demandTypeName } from './DemandType';
+import { ActivatedRoute, Router } from '@angular/router';
+import moment from 'moment';
 
 @Component({
   selector: 'app-meetingneeds',
@@ -23,26 +27,44 @@ import { Facility } from './Facility';
 })
 export class MeetingneedsComponent implements OnInit {
   capacityEntries: CapacityEntry[] = [];
-  capacityEntryTypes: string[] = [];
   chartData: ChartData | undefined;
   chartOptions: ChartOptions | undefined;
 
-  constructor(public meetingneedsService: MeetingneedsService) {}
+  constructor(
+    public meetingneedsService: MeetingneedsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-    this.capacityEntryTypes = [
-      capacityEntryTypeDisplayValue(CapacityEntryType.Job),
-      capacityEntryTypeDisplayValue(CapacityEntryType.EmployeeSuggestion),
-      capacityEntryTypeDisplayValue(CapacityEntryType.EmployeeHasJob),
-      capacityEntryTypeDisplayValue(CapacityEntryType.Demand),
-    ];
+    this.activatedRoute.queryParams.subscribe((params) => {
+      if (params['facilities']) {
+        this.selectedFacilities = params['facilities']
+          .split(',')
+          .map((id: string) => {
+            return this.meetingneedsService.facilities.find(
+              (facility) => facility.id === id,
+            )!;
+          });
+      }
+      if (params['dateRange']) {
+        this.selectedDateRange = params['dateRange']
+          .split('-')
+          .map((date: string) => moment(date, 'DD.MM.YYYY').toDate());
+      }
+      if (params['capacityEntryTypes']) {
+        this.selectedCapacityEntryTypes = params['capacityEntryTypes']
+          .split(',')
+          .map((type: string) => parseInt(type));
+      }
+      if (params['demandTypes']) {
+        this.selectedDemandTypes = params['demandTypes']
+          .split(',')
+          .map((type: string) => parseInt(type));
+      }
+    });
+
     this.capacityEntries = this.meetingneedsService.baseCapacityEntries;
-    this.selectedCapacityEntryTypes = [
-      CapacityEntryType.Job,
-      CapacityEntryType.EmployeeSuggestion,
-      CapacityEntryType.EmployeeHasJob,
-      CapacityEntryType.Demand,
-    ];
     this.updateCapacityEntries();
     this.updateChart();
   }
@@ -53,10 +75,27 @@ export class MeetingneedsComponent implements OnInit {
   selectedFacilities: Facility[] = [];
   selectedDateRange: Date[] | undefined = [];
   selectedCapacityEntryTypes: CapacityEntryType[] = [];
+  selectedDemandTypes: DemandType[] = [];
 
-  protected applyFilter(): void {
-    this.updateCapacityEntries();
-    this.updateChart();
+  protected async applyFilter(): Promise<void> {
+    const params = {
+      facilities: this.selectedFacilities
+        .map((facility) => facility.id)
+        .join(','),
+      dateRange: this.selectedDateRange
+        ? this.selectedDateRange
+            .map((date) => moment(date).format('DD.MM.YYYY'))
+            .join('-')
+        : undefined,
+      capacityEntryTypes: this.selectedCapacityEntryTypes.join(','),
+      demandTypes: this.selectedDemandTypes.join(','),
+    };
+
+    await this.router.navigate(['/meetingneedsdetails'], {
+      queryParams: params,
+    });
+
+    this.ngOnInit();
   }
 
   protected updateCapacityEntries(): void {
@@ -64,6 +103,7 @@ export class MeetingneedsComponent implements OnInit {
       this.selectedFacilities,
       this.selectedDateRange,
       this.selectedCapacityEntryTypes,
+      this.selectedDemandTypes,
     );
     this.capacityEntries = this.meetingneedsService.capacityEntries;
   }
@@ -151,4 +191,6 @@ export class MeetingneedsComponent implements OnInit {
       },
     };
   }
+
+  protected readonly demandTypeName = demandTypeName;
 }

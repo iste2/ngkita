@@ -1,13 +1,13 @@
 <h1 class="mb-3">Kapazitätsplanung - Details</h1>
 
 <!-- Filters -->
-<div class="flex flex-row align-items-center mb-3">
+<div class="flex flex-row flex-wrap align-items-center mb-3">
   <p-multiSelect
     [options]="meetingneedsService.facilities"
     [(ngModel)]="selectedFacilities"
     optionLabel="name"
     placeholder="Einrichtungen"
-    class="mr-2"
+    class="m-1"
   />
   <p-calendar
     [(ngModel)]="selectedDateRange"
@@ -15,16 +15,29 @@
     placeholder="Zeitraum"
     view="month"
     dateFormat="dd.mm.yy"
-    class="mr-2"
+    class="m-1"
   />
+  <p-multiSelect [options]="meetingneedsService.demandTypes" [(ngModel)]="selectedDemandTypes" placeholder="Bedarfstypen" class="m-1">
+    <ng-template pTemplate="selectedItems">
+      <div class="flex" *ngIf="selectedDemandTypes.length > 0">
+        <span *ngFor="let demandType of selectedDemandTypes" class="mr-1">{{ demandTypeName(demandType) }}</span>
+      </div>
+      <div *ngIf="selectedDemandTypes.length === 0">
+        Bedarfstypen
+      </div>
+    </ng-template>
+    <ng-template pTemplate="item" let-demandType>
+      {{ demandTypeName(demandType) }}
+    </ng-template>
+  </p-multiSelect>
   <p-multiSelect
     [options]="meetingneedsService.capacityEntryTypes"
     [(ngModel)]="selectedCapacityEntryTypes"
     placeholder="Elemente"
-    class="mr-2">
+    class="m-1">
     <ng-template let-capacityEntryType pTemplate="selectedItems">
       <div *ngIf="selectedCapacityEntryTypes.length > 0">
-        <div class="inline-flex mr-2" *ngFor="let item of selectedCapacityEntryTypes">
+        <div class="inline-flex mr-2 align-items-center" *ngFor="let item of selectedCapacityEntryTypes">
           <div style="height: 12px; width: 12px;" [style.background-color]="capacityEntryTypeColor(item)" class="mr-2"></div>
           {{ capacityEntryTypeDisplayValue(item) }}
         </div>
@@ -34,7 +47,7 @@
       </div>
     </ng-template>
     <ng-template let-capacityEntryType pTemplate="item">
-      <div class="flex flex-row">
+      <div class="flex flex-row align-items-center">
         <div style="height: 12px; width: 12px;" [style.background-color]="capacityEntryTypeColor(capacityEntryType)" class="mr-2"></div>
         {{ capacityEntryTypeDisplayValue(capacityEntryType) }}
       </div>
@@ -44,19 +57,19 @@
     label="Filtern"
     icon="pi pi-filter"
     (click)="applyFilter()"
-    class="mr-2" />
+    class="m-1" />
 </div>
 
 <!-- Chart -->
-<p-chart
-  *ngIf="capacityEntries.length > 0"
-  type="line"
-  [data]="chartData"
-  [options]="chartOptions"
-  height="400px"
-/>
-
-<div class="mb-3"></div>
+<div class="mb-3">
+  <p-chart
+    *ngIf="capacityEntries.length > 0"
+    type="line"
+    [data]="chartData"
+    [options]="chartOptions"
+    height="200px"
+  />
+</div>
 
 <!-- Table -->
 <p-table
@@ -73,14 +86,16 @@
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
+      <th>Bezeichnung</th>
       <th>Start</th>
       <th>Ende</th>
       <th>Wochenstunden</th>
+      <th>Bedarfstyp</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="groupheader" let-capacityEntry>
     <tr>
-      <td colspan="4">
+      <td colspan="6">
         <div class="flex flex-row">
           <div style="height: 12px; width: 12px;" [style.background-color]="capacityEntryTypeColor(capacityEntry.capacityEntryType)" class="mr-2"></div>
           {{ capacityEntryTypeDisplayValue(capacityEntry.capacityEntryType) }}
@@ -91,9 +106,11 @@
   <ng-template pTemplate="body" let-capacityEntry>
     <tr>
       <td>{{ capacityEntry.id }}</td>
+      <td>{{ capacityEntry.name }}</td>
       <td>{{ capacityEntry.startDate.toLocaleDateString() }}</td>
       <td>{{ capacityEntry.endDate.toLocaleDateString() }}</td>
       <td>{{ capacityEntry.capacityHoursPerWeek }}</td>
+      <td>{{ demandTypeName(capacityEntry.demandType) }}</td>
     </tr>
   </ng-template>
 </p-table>

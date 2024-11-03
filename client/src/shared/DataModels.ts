@@ -45,11 +45,13 @@ export interface Contract extends DateRangeCapacityOwner {
 export interface Job extends DateRangeCapacityOwner {
   facility: Facility;
   employeeHasJobs: EmployeeHasJob[];
+  occupation: Occupation;
 }
 
 export interface EmployeeSuggestion extends DateRangeCapacityOwner {
   employee: Employee;
   facility: Facility;
+  demandType: DemandType;
 }
 
 export interface EmployeeHasJob extends DateRangeCapacityOwner {
@@ -68,4 +70,16 @@ export interface KiBizGroup extends DateRangeCapacityOwner {
   size3A: number;
   size3B: number;
   size3C: number;
+}
+
+export interface Occupation {
+  name: string;
+  demandType: DemandType;
+}
+
+export enum DemandType {
+  Specialist = 1, // Fk
+  Assistant = 2, // Ek
+  Manager = 3, // FkLeit
+  Support = 4, //
 }

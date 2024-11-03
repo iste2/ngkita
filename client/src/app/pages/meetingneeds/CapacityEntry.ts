@@ -1,4 +1,4 @@
-import { DateRangeCapacityOwner } from '../../../shared/DataModels';
+import { DateRangeCapacityOwner, DemandType } from '../../../shared/DataModels';
 
 export enum CapacityEntryType {
   Job = 1,
@@ -21,9 +21,11 @@ export function capacityEntryTypeColor(capacityEntryType: CapacityEntryType) {
 
 export interface CapacityEntry extends DateRangeCapacityOwner {
   id: string;
+  name: string;
   facilityId: string;
   show: boolean;
   capacityEntryType: CapacityEntryType;
+  demandType: DemandType;
 }
 
 export function capacityEntryTypeDisplayValue(
