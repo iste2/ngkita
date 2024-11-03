@@ -144,7 +144,7 @@
         <div class="flex flex-row">
           <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" severity="info" class="mr-2" size="small" />
           <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" severity="success" class="mr-2" (click)="onRowEditSave(group)" size="small" />
-          <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" severity="warning" class= size="small" />
+          <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" severity="warning" class="mr-2" size="small" />
           <p-button *ngIf="!editing" icon="pi pi-trash" class="mr-2" severity="danger" size="small" (click)="deleteGroup(group)" />
         </div>
       </td>
