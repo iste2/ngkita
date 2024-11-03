@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { MeetingneedsComponent } from './pages/meetingneeds/meetingneeds.component';
 import { AuthGuardService } from './shared/authGuardService/auth-guard.service';
 import { DemandplanningComponent } from './pages/demandplanning/demandplanning.component';
+import { MeetingneedsoverviewComponent } from './pages/meetingneedsoverview/meetingneedsoverview.component';
 
 const routes: Routes = [
   {
@@ -14,8 +15,13 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   {
-    path: 'meetingneeds',
+    path: 'meetingneedsdetails',
     component: MeetingneedsComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'meetingneedsoverview',
+    component: MeetingneedsoverviewComponent,
     canActivate: [AuthGuardService],
   },
   {

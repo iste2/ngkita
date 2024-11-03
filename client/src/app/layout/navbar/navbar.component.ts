@@ -29,9 +29,18 @@ export class NavbarComponent implements OnInit {
         route: '/demandplanning',
       },
       {
-        label: 'Kapazitätsübersicht',
+        label: 'Kapazitätsplanung',
         icon: 'pi pi-fw pi-chart-bar',
-        route: '/meetingneeds',
+        items: [
+          {
+            label: 'Übersicht',
+            route: '/meetingneedsoverview',
+          },
+          {
+            label: 'Details',
+            route: '/meetingneedsdetails',
+          },
+        ],
       },
       {
         label: 'Login',

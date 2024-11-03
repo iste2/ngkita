@@ -27,6 +27,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DemandplanningComponent } from './pages/demandplanning/demandplanning.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { MeetingneedsoverviewComponent } from './pages/meetingneedsoverview/meetingneedsoverview.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { DropdownModule } from 'primeng/dropdown';
     NavbarComponent,
     MeetingneedsComponent,
     DemandplanningComponent,
+    MeetingneedsoverviewComponent,
   ],
   imports: [
     BrowserModule,
