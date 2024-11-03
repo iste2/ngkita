@@ -1,6 +1,6 @@
 <h1 class="mb-3">Bedarfsplanung</h1>
 
-<p-table [value]="kibizGroups" dataKey="id" editMode="row" [scrollable]="true">
+<p-table [value]="kibizGroups" dataKey="id" editMode="row" [scrollable]="true" styleClass="p-datatable-sm">
   <ng-template pTemplate="caption">
     <p-button icon="pi pi-plus" class="mr-2" severity="success" (click)="addGroup()" />
   </ng-template>
@@ -142,10 +142,10 @@
 
       <td pFrozenColumn [frozen]="true" alignFrozen="right">
         <div class="flex flex-row">
-          <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" severity="info" class="mr-2" />
-          <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" severity="success" class="mr-2" (click)="onRowEditSave(group)" />
-          <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" severity="warning" class="mr-2" />
-          <p-button *ngIf="!editing" icon="pi pi-trash" class="mr-2" severity="danger" (click)="deleteGroup(group)" />
+          <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" severity="info" class="mr-2" size="small" />
+          <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" severity="success" class="mr-2" (click)="onRowEditSave(group)" size="small" />
+          <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" severity="warning" class= size="small" />
+          <p-button *ngIf="!editing" icon="pi pi-trash" class="mr-2" severity="danger" size="small" (click)="deleteGroup(group)" />
         </div>
       </td>
     </tr>
