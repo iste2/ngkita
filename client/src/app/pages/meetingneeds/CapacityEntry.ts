@@ -1,10 +1,10 @@
 import { DateRangeCapacityOwner } from '../../../shared/DataModels';
 
 export enum CapacityEntryType {
-  Job,
-  EmployeeSuggestion,
-  EmployeeHasJob,
-  Demand,
+  Job = 1,
+  EmployeeSuggestion = 2,
+  EmployeeHasJob = 3,
+  Demand = 4,
 }
 
 export const capacityEntryTypeColors = {
