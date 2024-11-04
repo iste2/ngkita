@@ -37,6 +37,8 @@ export class MeetingneedsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.capacityEntries = this.meetingneedsService.baseCapacityEntries;
+
     this.activatedRoute.queryParams.subscribe((params) => {
       if (params['facilities']) {
         this.selectedFacilities = params['facilities']
@@ -62,11 +64,10 @@ export class MeetingneedsComponent implements OnInit {
           .split(',')
           .map((type: string) => parseInt(type));
       }
-    });
 
-    this.capacityEntries = this.meetingneedsService.baseCapacityEntries;
-    this.updateCapacityEntries();
-    this.updateChart();
+      this.updateCapacityEntries();
+      this.updateChart();
+    });
   }
 
   protected readonly capacityEntryTypeDisplayValue =
@@ -94,8 +95,6 @@ export class MeetingneedsComponent implements OnInit {
     await this.router.navigate(['/meetingneedsdetails'], {
       queryParams: params,
     });
-
-    this.ngOnInit();
   }
 
   protected updateCapacityEntries(): void {
